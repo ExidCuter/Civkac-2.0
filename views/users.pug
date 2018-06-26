@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  each user, i in users
+    div.row(style="height:10px;background-color:#FFF;")
+    div.row(style="background-color:#FFF;")
+      div.col-sm-1
+        img.rounded(src="/"+user.image, style="width: 100%")
+      dic.col-sm-10
+        div.row
+          a(href="/user/"+user.username) #{user.username}
+            b #{" @"+user.handle}
+    div.row.border-bottom(style="height:10px;background-color:#FFF;")

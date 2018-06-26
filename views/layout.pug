@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title Čivkač
+    link(rel='stylesheet', href='/bower_comp/bootstrap/dist/css/bootstrap.css')
+  body(style="background-color: #e6ecf0;")
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      .container
+        a.navbar-brand(href='/') Čivkač
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        #navbarSupportedContent.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item.active
+            - if (typeof(loggedUser) !== 'undefined'){
+              a.nav-link(href='/home')
+                | Domov 
+                span.sr-only (current)
+              li.nav-item.dropdown
+                a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                  b #{loggedUser.username}
+                .dropdown-menu(aria-labelledby='navbarDropdown')
+                  a.dropdown-item(href='/user/'+loggedUser.username+"?logged="+loggedUser.username) Profil
+                  a.dropdown-item(href='/about') O strani
+                  .dropdown-divider
+                  a.dropdown-item(href='/logout')
+                    button.btn.btn-danger(style="width: 100%;") Odjava
+            -}
+          form.form-inline.my-2.my-lg-0(method="POST", action="/findUser")
+            .input-group
+              .input-group-prepend
+                span#basic-addon1.input-group-text @
+              input.form-control(type='text', name="userSearch", placeholder='Uporabnisko ime/handle', aria-label='Uporabnisko ime/handle', aria-describedby='basic-addon1')
+
+    .container(style="margin-top:20px")
+      block content
+      br
+      hr
+      footer
+        p Copyrigbt &copy; 2018
+    script(src='/bower_comp/jquery/dist/jquery.js')
+    script(src='/bower_comp/bootstrap/dist/js/bootstrap.js')

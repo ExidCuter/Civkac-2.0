@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  ul.list-group
+    li.list-group-item= post.author.username
+    li.list-group-item= post.text
+    hr
+    li.list-group-item
+      ul.list-group
+        each reply, i in post.replies
+          a(href="/reply/"+reply.id)
+            li.list-group-item= reply.author.username
+            li.list-group-item= reply.text
+            hr
+        form.form-inline(method="POST", action='/reply/'+post.id)
+          .form-group(style='width: 100%')
+            input(id=post.id).form-control(name="text", style='width: 79.5%; margin-left: 2.5%;', type='text')
+            button.btn.btn-info(style='width: 15%; margin-left: 2.5%' , type='submit') Odgovori

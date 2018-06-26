@@ -1,0 +1,71 @@
+extends layout
+
+block content
+  div.row
+    div.col-lg-3
+      div.row(style="background-color: #FFF; padding-top: 10px")
+        div.col
+          img.rounded(src="/img/defaultUser.png", style="width: 100%;")
+      div.row(style="background-color: #FFF;")
+        div.col
+          b #{loggedUser.username} 
+      div.row(style="background-color: #FFF;")
+        div.col
+          b(style="color: #1B95E0;") #{"@"+loggedUser.username}
+      div.row(style="background-color: #FFF;")
+        div.col 
+          b Čivki
+        div.col 
+          b Sledi
+        div.col 
+          b Sledilci
+      div.row(style="background-color: #FFF; padding-bottom: 20px;")
+        div.col(style="color: #1B95E0;")
+          b 23
+        div.col(style="color: #1B95E0;") 
+          b 12
+        div.col(style="color: #1B95E0;")
+          b 2
+    div.col-lg-1
+    div.col-lg-8 
+      div.row(style="background-color: #e8f4fb; margin-bottom: 10px; padding: 10px 0px;")
+        br
+        form.form-inline(method="POST", action='/tweet', style='width: 100%')
+          .form-group(style='width: 100%')
+            input#tweet.form-control(name="text", style='width: 82.5%; margin-left: 2.5%;', type='text')
+            button.btn.btn-info(style='width: 10%; margin-left: 2.5%' , type='submit') Čivkni
+        br
+      div.row
+      each post, i in posts
+        div.row(style="height:10px;background-color:#FFF;")
+        div.row(style="background-color:#FFF;")
+          div.col-sm-1
+            img.rounded(src="/"+post.author.image, style="width: 100%")
+          dic.col-sm-10
+            div.row
+              a(href="/user/"+post.author.username) #{post.author.username}
+                b #{" @"+post.author.handle}
+            div.row
+              a(href="/post/"+post.id) #{post.text}
+        div.row.border-bottom(style="height:10px;background-color:#FFF;")
+        each reply, i in post.replies
+          div.row(style="height:10px;background-color:#FFF;")
+          div.row(style="background-color:#FFF;")
+            div.col-sm-1
+            div.col-sm-1
+              img.rounded(src="/"+reply.author.image, style="width: 100%")
+            dic.col-sm-9
+              div.row
+                a(href="/user/"+reply.author.username) #{reply.author.username}
+                  b #{" @"+reply.author.handle}
+              div.row
+                a(href="/reply/"+reply.id) #{reply.text}
+          div.row.border-bottom(style="height:10px;background-color:#FFF;")
+        div.row(style="background-color: #e8f4fb; margin-bottom: 10px; padding: 10px 0px;")
+          form.form-inline(method="POST", action='/reply/'+post.id, style='width: 100%')
+            .form-group(style='width: 100%')
+              input.form-control(name="text", style='width: 77.5%; margin-left: 2.5%;', type='text')
+              button.btn.btn-info(style='width: 15%; margin-left: 2.5%' , type='submit') Komentiraj
+        div.row(style="margin-bottom: 10px")
+          
+    
